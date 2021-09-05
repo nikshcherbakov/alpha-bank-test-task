@@ -7,14 +7,22 @@ public class GiphyResponse {
 
     public static class GiphyApiData {
         @SerializedName("image_url")
-        private String imageUrl;
+        private final String imageUrl;
+
+        public GiphyApiData(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
 
         public String getImageUrl() {
             return imageUrl;
         }
     }
 
-    private GiphyApiData data;
+    private final GiphyApiData data;
+
+    public GiphyResponse(GiphyApiData data) {
+        this.data = data;
+    }
 
     public GiphyApiData getData() {
         return data;

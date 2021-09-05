@@ -1,5 +1,6 @@
-package com.nikshcherbakov.alphabanktesttask.utils;
+package com.nikshcherbakov.alphabanktesttask.clients;
 
+import com.nikshcherbakov.alphabanktesttask.utils.GiphyResponse;
 import feign.Param;
 import feign.RequestLine;
 

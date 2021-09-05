@@ -1,7 +1,8 @@
 package com.nikshcherbakov.alphabanktesttask.services;
 
-import com.nikshcherbakov.alphabanktesttask.utils.IllegalDateException;
-import com.nikshcherbakov.alphabanktesttask.utils.NonSupportedCurrencyException;
+import com.nikshcherbakov.alphabanktesttask.exceptions.IllegalDateException;
+import com.nikshcherbakov.alphabanktesttask.exceptions.ServiceIsNotAvailableException;
+import com.nikshcherbakov.alphabanktesttask.exceptions.NonSupportedCurrencyException;
 
 import java.time.LocalDate;
 
@@ -19,5 +20,5 @@ public interface IExchangeService {
      * января 1999 года, либо после текущей даты
      */
     float getCrossRateTargetCurrencyToRubByDate(String currencyCode, LocalDate date)
-            throws NonSupportedCurrencyException, IllegalDateException;
+            throws NonSupportedCurrencyException, IllegalDateException, ServiceIsNotAvailableException;
 }

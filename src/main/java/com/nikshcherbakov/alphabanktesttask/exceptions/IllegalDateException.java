@@ -1,4 +1,4 @@
-package com.nikshcherbakov.alphabanktesttask.utils;
+package com.nikshcherbakov.alphabanktesttask.exceptions;
 
 public class IllegalDateException extends Exception {
 }

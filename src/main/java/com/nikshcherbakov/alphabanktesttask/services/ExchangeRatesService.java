@@ -1,11 +1,15 @@
 package com.nikshcherbakov.alphabanktesttask.services;
 
+import com.nikshcherbakov.alphabanktesttask.clients.OpenExchangeRatesClient;
+import com.nikshcherbakov.alphabanktesttask.exceptions.IllegalDateException;
+import com.nikshcherbakov.alphabanktesttask.exceptions.NonSupportedCurrencyException;
+import com.nikshcherbakov.alphabanktesttask.exceptions.ServiceIsNotAvailableException;
 import com.nikshcherbakov.alphabanktesttask.utils.*;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -25,22 +29,24 @@ public class ExchangeRatesService implements IExchangeService {
 
     @Override
     public float getCrossRateTargetCurrencyToRubByDate(String currencyCode, LocalDate date)
-            throws NonSupportedCurrencyException, IllegalDateException {
+            throws NonSupportedCurrencyException, IllegalDateException, ServiceIsNotAvailableException {
         if (date.isBefore(LocalDate.of(1999, 1, 1)) ||
                 date.isAfter(LocalDate.now())) {
             throw new IllegalDateException();
         }
 
-        Map<String, String> requestParams = new HashMap<>();
-        requestParams.put("app_id", appId);
-        requestParams.put("base", baseCurrency);
+        try {
+            OpenExchangeRatesResponse response =
+                    exchangeRatesClient.requestRatesByDate(date.toString(), appId, baseCurrency);
 
-        OpenExchangeRatesResponse response = exchangeRatesClient.requestRatesByDate(date.toString(), requestParams);
-        Map<String, Float> rates = response.getRates();
-        for (Map.Entry<String, Float> rate : rates.entrySet()) {
-            if (rate.getKey().equals(currencyCode)) {
-                return rates.get("RUB") / rate.getValue();
+            Map<String, Float> rates = response.getRates();
+            for (Map.Entry<String, Float> rate : rates.entrySet()) {
+                if (rate.getKey().equals(currencyCode)) {
+                    return rates.get("RUB") / rate.getValue();
+                }
             }
+        } catch (FeignException e) {
+            throw new ServiceIsNotAvailableException();
         }
 
         // Запрашиваемая валюта не найдена

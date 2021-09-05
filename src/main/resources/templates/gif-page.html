@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${rubleGrewUp == true}">Rubble is growing up!</title>
+    <title th:if="${rubleGrewUp == false}">Rubble is going down!</title>
+</head>
+<body>
+    <h2 th:if="${rubleGrewUp == true}">Рубль растет!</h2>
+    <h2 th:if="${rubleGrewUp == false}">Рубль падает!</h2>
+    <img th:src="${gifUrl}" th:alt="${gifUrl}">
+</body>
+</html>

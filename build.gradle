@@ -15,6 +15,10 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'io.github.openfeign:feign-okhttp:11.6'
+    implementation 'io.github.openfeign:feign-gson:11.6'
+    implementation 'io.github.openfeign:feign-slf4j:11.6'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 test {

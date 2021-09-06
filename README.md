@@ -36,9 +36,15 @@ git clone https://github.com/nikshcherbakov/alpha-bank-test-task.git
 ```
 * _PATH/TO/YOUR/DIRECTORY_ - путь, в который будет производиться сохранение
 
-2. Запустите исполняемый jar-файл:
+2. Выполните сборку проекта с помощью [Gradle](https://gradle.org/install/):
 ```
-java -jar ./alpha-bank-test-task/build/libs/alpha-bank-test-task-0.0.1-SNAPSHOT.jar
+cd ./alpha-bank-test-task
+gradle build
+```
+
+3. Запустите исполняемый jar-файл:
+```
+java -jar ./build/libs/alpha-bank-test-task-0.0.1-SNAPSHOT.jar
 ```
 
 ## Запуск с использованием docker
@@ -56,16 +62,21 @@ git clone https://github.com/nikshcherbakov/alpha-bank-test-task.git
 ```
 * _PATH/TO/YOUR/DIRECTORY_ - путь, в который будет производиться сохранение
 
-2. Создайте docker образ
+2. Выполните сборку проекта с помощью [Gradle](https://gradle.org/install/):
 ```
 cd ./alpha-bank-test-task
+gradle build
+```
+
+3. Создайте docker образ
+```
 docker build -f Dockerfile -t alpha-bank-test .
 ```
 
 * Для проверки того, что образ был успешно создан, пожалуйста, воспользуйтесь командой `docker images` и убедитесь, 
 что образ _alpha-bank-test_ был успешно создан.
 
-3. Запустите созданный на предыдущем шаге образ docker
+4. Запустите созданный на предыдущем шаге образ docker
 ```
 docker run -p 8085:8085 alpha-bank-test
 ```
